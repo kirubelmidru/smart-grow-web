@@ -10,7 +10,7 @@ let animated = false;
     class="features-wrapper">
     {#if animated}
 	<p transition:fade={{duration: 300}}>
-	    We’re a global design firm with colleagues spanning four continents creating experiences that amplify the joy felt in shared human moments.
+	    We're a small group that want to revolutionize how we grow and take care of our plants encouraging sustainable behavior.
 	</p>
     {/if}
 </div>
