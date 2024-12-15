@@ -1,3 +1,12 @@
-<div class="flex flex-col py-36">
-    <h2 class="text-8xl font-semibold text-center w-1/2 self-center">Introducing Ethiopia to The World</h2>
+<div class="about-wrapper">
+    <h2 style="font-size: 8rem; text-align: center;">About Us</h2>
 </div>
+
+<style>
+.about-wrapper {
+    height: 100vh;
+    background: black;
+    padding: 8rem;
+    color: white;
+}
+</style>

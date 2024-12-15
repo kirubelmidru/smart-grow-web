@@ -5,14 +5,12 @@ import { fly } from 'svelte/transition';
 import { quadOut } from 'svelte/easing';
 
 let what = [
-    {text: "Explore", url: "/explore"},
     {text: "Features", url: "/features"},
     {text: "Impact", url: "/impact"},
 ];
 let who = [
     {text: "About", url: "/about"},
     {text: "Team", url: "/team"},
-    {text: "Career", url: "/career"},
 ];
 let where = [
     {text: "Location", url: "/location"},
@@ -33,33 +31,41 @@ export let view;
     <div class="info-wrapper">
 	<div class="nav-link">
 	    <p>What</p>
-	    {#each what as what}
-		<LinkButton text = {what.text} url = {what.url}/>
-	    {/each}
+	    <div class="inner-nav">
+		{#each what as what}
+		    <LinkButton text = {what.text} url = {what.url}/>
+		{/each}
+	    </div>
 	</div>
 	<div class="nav-link">
 	    <p>Who</p>
-	    {#each who as who}
-		<LinkButton text = {who.text} url = {who.url}/>
-	    {/each}
+	    <div class="inner-nav">
+		{#each who as who}
+		    <LinkButton text = {who.text} url = {who.url}/>
+		{/each}
+	    </div>
 	</div>
 	<div class="nav-link">
 	    <p>Where</p>
-	    {#each where as where}
-		<LinkButton text = {where.text} url = {where.url}/>
-	    {/each}
+	    <div class="inner-nav">
+		{#each where as where}
+		    <LinkButton text = {where.text} url = {where.url}/>
+		{/each}
+	    </div>
 	</div>
 	<div class="nav-link">
 	    <p>Socials</p>
-	    {#each socials as socials}
-		<LinkButton text = {socials.text} url = {socials.url}/>
-	    {/each}
+	    <div class="inner-nav">
+		{#each socials as socials}
+		    <LinkButton text = {socials.text} url = {socials.url}/>
+		{/each}
+	    </div>
 	</div>
-	<div class="bottom">
-	    {#if view}
-		<p in:fly={{ delay: 600, duration: 600, y: 20, opacity: 0, easing: quadOut }} style="display: flex;">Copyright © 2024 Grow</p>
-	    {/if}
-	</div>
+    </div>
+    <div class="bottom">
+	{#if view}
+	    <p in:fly={{ delay: 600, duration: 600, y: 20, opacity: 0, easing: quadOut }} style="display: flex;">Copyright © 2024 Grow</p>
+	{/if}
     </div>
 </footer>
 
@@ -93,6 +99,10 @@ footer {
     display: flex;
     font-size: 12px;
     text-transform: uppercase;
+}
+.inner-nav {
+    display: flex;
+    flex-direction: column;
 }
 .bottom {
     display: flex;

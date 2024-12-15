@@ -8,10 +8,8 @@ import { quadOut } from 'svelte/easing';
 let who = [
     { text: "About Us", url: "/about" },
     { text: "Team", url: "/team" },
-    {text: "Careers", url: "/careers" },
 ];
 let what = [
-    {text: "Explore", url: "/explore"},
     {text: "Features", url: "/features"},
     {text: "Impact", url: "/impact"},
 ];
@@ -22,15 +20,19 @@ let animated = false;
 <nav use:inView = {{ threshold: 0.6 }} on:enter = {()=> animated = true} on:exit = {()=> animated = false} transition:slide={{ duration: 400, axis: 'y', easing: quadOut }}>
     <div class="nav-link">
 	<p>Who</p>
-	{#each who as who}
-	    <LinkButton text = {who.text} url = {who.url}/>
-	{/each}
+	<div class="inner-nav">
+	    {#each who as who}
+		<LinkButton text = {who.text} url = {who.url}/>
+	    {/each}
+	</div>
     </div>
     <div class="nav-link">
 	<p>What</p>
-	{#each what as what}
-	    <LinkButton text = {what.text} url = {what.url}/>
-	{/each}
+	<div class="inner-nav">
+	    {#each what as what}
+		<LinkButton text = {what.text} url = {what.url}/>
+	    {/each}
+	</div>
     </div>
 </nav>
 
@@ -65,5 +67,9 @@ nav {
     display: flex;
     font-size: 12px;
     text-transform: uppercase;
+}
+.inner-nav {
+    display: flex;
+    flex-direction: column;
 }
 </style>

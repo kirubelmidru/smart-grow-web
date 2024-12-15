@@ -4,7 +4,7 @@ import { quadInOut } from 'svelte/easing';
 
 export let text;
 export let url;
-export let animated = false;
+export let animated = true;
 </script>
 
 {#if animated}
