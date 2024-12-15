@@ -1,31 +1,37 @@
 <script>
-import NavLink from "$lib/components/articles/NavLink.svelte";
+import LinkButton from "$lib/components/buttons/LinkButton.svelte";
 import inView from "$lib/scripts/inView.js";
 import { open } from "$lib/stores/stores.js";
 import { slide } from 'svelte/transition';
 import { quadOut } from 'svelte/easing';
 
-let info = [
-    { text: "who", component: [
-	{text: "About Us", url: "/about"},
-	{text: "Team", url: "/team"},
-	{text: "Careers", url: "/careers"},
-
-    ]},
-    { text: "what", component: [
-	{text: "Explore", url: "/explore"},
-	{text: "Features", url: "/features"},
-	{text: "Impact", url: "/impact"},
-    ]}
+let who = [
+    { text: "About Us", url: "/about" },
+    { text: "Team", url: "/team" },
+    {text: "Careers", url: "/careers" },
+];
+let what = [
+    {text: "Explore", url: "/explore"},
+    {text: "Features", url: "/features"},
+    {text: "Impact", url: "/impact"},
 ];
 
 let animated = false;
 </script>
 
 <nav use:inView = {{ threshold: 0.6 }} on:enter = {()=> animated = true} on:exit = {()=> animated = false} transition:slide={{ duration: 400, axis: 'y', easing: quadOut }}>
-    {#each info as info}
-	<NavLink text={info.text} component={info.component} animated={animated}/>
-    {/each}
+    <div class="nav-link">
+	<p>Who</p>
+	{#each who as who}
+	    <LinkButton text = {who.text} url = {who.url}/>
+	{/each}
+    </div>
+    <div class="nav-link">
+	<p>What</p>
+	{#each what as what}
+	    <LinkButton text = {what.text} url = {what.url}/>
+	{/each}
+    </div>
 </nav>
 
 <style>
@@ -49,5 +55,15 @@ nav {
 	justify-content: flex-end;
 	align-items: flex-start;
     }
+}
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+} 
+.nav-link p {
+    display: flex;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 </style>

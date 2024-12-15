@@ -2,7 +2,6 @@
 import { fly } from 'svelte/transition';
 import { quadInOut } from 'svelte/easing';
 
-export let index
 export let text;
 export let url;
 export let animated = false;

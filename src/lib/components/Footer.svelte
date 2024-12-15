@@ -1,31 +1,28 @@
 <script>
 import LinkButton from "$lib/components/buttons/LinkButton.svelte";
-import NavLink from "$lib/components/articles/NavLink.svelte";
 import inView from "$lib/scripts/inView.js";
 import { fly } from 'svelte/transition';
 import { quadOut } from 'svelte/easing';
 
-let info = [ 
-    {text:"what", component: [
-	{text: "Explore", url: "/explore"},
-	{text: "Features", url: "/features"},
-	{text: "Impact", url: "/impact"},
-    ]},
-    {text: "who", component: [
-	{text: "About", url: "/about"},
-	{text: "Team", url: "/team"},
-	{text: "Career", url: "/career"},
-    ]},
-    {text: "where", component: [
-	{text: "Location", url: "/location"},
-	{text: "Contact", url: "/contact"},
-    ]},
-    {text: "socials", component: [
-	{text: "Linkedin", url: ""},
-	{text: "Facebook", url: ""},
-	{text: "Instagram", url: ""},
-	{text: "X(Twitter)", url: ""},
-    ]},
+let what = [
+    {text: "Explore", url: "/explore"},
+    {text: "Features", url: "/features"},
+    {text: "Impact", url: "/impact"},
+];
+let who = [
+    {text: "About", url: "/about"},
+    {text: "Team", url: "/team"},
+    {text: "Career", url: "/career"},
+];
+let where = [
+    {text: "Location", url: "/location"},
+    {text: "Contact", url: "/contact"},
+];
+let socials= [
+    {text: "Linkedin", url: ""},
+    {text: "Facebook", url: ""},
+    {text: "Instagram", url: ""},
+    {text: "X(Twitter)", url: ""},
 ];
 
 export let view;
@@ -34,14 +31,35 @@ export let view;
 <footer use:inView = {{ threshold: 0.6 }} on:enter = {()=> view = true} on:exit = {()=> view = false}> 
     <p style="font-size: 32px; font-weight: 600; text-transform: uppercase;">Grow</p>
     <div class="info-wrapper">
-	{#each info as info}
-	    <NavLink  text={info.text} component={info.component} animated={view}/>
-	{/each}
-    </div>
-    <div class="bottom">
-	{#if view}
-	    <p in:fly={{ delay: 600, duration: 600, y: 20, opacity: 0, easing: quadOut }} style="display: flex;">Copyright © 2024 Guzo</p>
-	{/if}
+	<div class="nav-link">
+	    <p>What</p>
+	    {#each what as what}
+		<LinkButton text = {what.text} url = {what.url}/>
+	    {/each}
+	</div>
+	<div class="nav-link">
+	    <p>Who</p>
+	    {#each who as who}
+		<LinkButton text = {who.text} url = {who.url}/>
+	    {/each}
+	</div>
+	<div class="nav-link">
+	    <p>Where</p>
+	    {#each where as where}
+		<LinkButton text = {where.text} url = {where.url}/>
+	    {/each}
+	</div>
+	<div class="nav-link">
+	    <p>Socials</p>
+	    {#each socials as socials}
+		<LinkButton text = {socials.text} url = {socials.url}/>
+	    {/each}
+	</div>
+	<div class="bottom">
+	    {#if view}
+		<p in:fly={{ delay: 600, duration: 600, y: 20, opacity: 0, easing: quadOut }} style="display: flex;">Copyright © 2024 Grow</p>
+	    {/if}
+	</div>
     </div>
 </footer>
 
@@ -65,6 +83,16 @@ footer {
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 2rem;
     }
+}
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+} 
+.nav-link p {
+    display: flex;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 .bottom {
     display: flex;
