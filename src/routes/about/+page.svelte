@@ -1,6 +1,11 @@
+<script>
+import About from "$lib/components/landing/About.svelte";
+</script>
+
 <div class="about-wrapper">
     <h2 style="font-size: 8rem; text-align: center;">About Us</h2>
 </div>
+<About/>
 
 <style>
 .about-wrapper {
