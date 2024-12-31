@@ -15,7 +15,7 @@ import Smart_Plant_Grower from "$lib/images/smart_plant_grower.jpg";
     <li>Eco-Friendly Design: Built with sustainable materials and a water-saving irrigation system.</li>
 
 Whether you’re growing herbs, flowers, or vegetables, SmartGrow Pro makes it easy and fun to cultivate your green thumb, no matter your skill level.<p>
-	<a href="/checkout">Add to Cart</a>
+	<a href="/checkout">Buy Now</a>
     </div>
 </div>
 
@@ -40,5 +40,6 @@ a {
     padding: 1rem;
     background: black;
     color: white;
+    decoration: none;
 }
 </style>
