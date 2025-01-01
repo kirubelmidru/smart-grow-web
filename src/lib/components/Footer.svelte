@@ -11,6 +11,7 @@ let what = [
 let who = [
     {text: "About", url: "/about"},
     {text: "Team", url: "/team"},
+    {text: "Admin", url: "/dashboard"}
 ];
 let where = [
     {text: "Location", url: "/location"},

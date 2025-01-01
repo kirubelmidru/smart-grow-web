@@ -1,24 +1,22 @@
 <script>
-import { FireFunc } from '$lib/firebase/firebase';
 import { goto } from '$app/navigation';
-const { loginFunction } = FireFunc;
+import { auth } from "$lib/firebase/firebase.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import loginStore from '$lib/stores/loginStore.js';
 
 let wrong = false;
 
 let formData = {};
+
 const handleLogin = async () => {
-    let { username, password } = formData;
-    if (!username || !password) {
-	wrong = true;
-	return;
-    }
-    const loggedIn = await loginFunction(username, password);
-    if (loggedIn) {
-	goto('/dashboard');
-	loginStore.set(true);
+    let { email, password } = formData;
+    try {
+	const userCredential = await signInWithEmailAndPassword(auth, email, password);
+	let user = userCredential.user;
 	wrong = false;
-    } else {
+	goto('/dashboard');
+    } catch (error) {
+	console.error("Error logging in:", error.message);
 	wrong = true;
     }
 };
@@ -29,6 +27,7 @@ const handleChange = (e) => {
 	[e.target.name]: e.target.value
     };
 };
+
 </script>
 
 <div class="login-wrapper">
@@ -37,9 +36,9 @@ const handleChange = (e) => {
 	on:input={handleChange}
 	type="text"
 	autocomplete="off"
-	id="username"
-	name="username"
-	placeholder="Username"
+	id="email"
+	name="email"
+	placeholder="Email"
     />
     <input
 	on:input={handleChange}

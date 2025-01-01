@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getStorage, ref, uploadBytes, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
-import { updateDoc } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
+
 
 import {
     collection,
@@ -31,65 +31,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
 const db = getFirestore(app);
-const storage = getStorage(app);
-
-async function addProduct(productID, name, source, price, description, category) {
-    console.log(productID, name, source, price, description, category);
-    await setDoc(doc(db, 'products', String(productID)), {
-	productID: productID,
-	name: name,
-	source: source,
-	price: price,
-	description: description,
-	category: category,
-    });
-}
-
-async function deleteProduct(productID) {
-    await deleteDoc(doc(db, 'products', String(productID)));
-    await deleteImages(productID)
-}
-
-async function fetchSpecificProuct(productID) {
-    const mydoc = await getDoc(doc(db, 'products', String(productID)));
-    if (mydoc.exists()) {
-	return mydoc.data();
-    } else {
-	return null;
-    }
-}
-
-async function fetchAllProducts() {
-    const querySnapshot = await getDocs(collection(db, 'products'));
-    const AllProducts = [];
-    querySnapshot.forEach((doc) => {
-	AllProducts.push(doc.data());
-    });
-    return AllProducts;
-}
-
-async function loginFunction(username, password) {
-    const mydoc = await getDoc(doc(db, 'auth', 'admin'));
-    const mydata = mydoc.data();
-    if (username == mydata.username && password == mydata.password) {
-	return true;
-    } else {
-	return false;
-    }
-}
-
-async function changeAdminInformation(username, password) {
-    await setDoc(doc(db, 'auth', 'admin'), {
-	username: username,
-	password: password
-    });
-}
-
-async function updateProduct(productID, updatedData) {
-    const documentRef = doc(db, 'products', String(productID));
-    await updateDoc(documentRef, updatedData);
-}
 
 async function addToPending(
     txnReference,
@@ -115,26 +58,6 @@ async function addToPending(
 	order: order,
 	price_Before_tax:price
     });
-}
-
-async function addImage(productID, img,count) {
-    console.log("name count" ,count)
-    const imageRef = ref(storage, String(productID) + '/' + count);
-    const res = await uploadBytes(imageRef, img);
-}
-
-async function fetchImageForProduct(productID) {
-    const imageListRef = ref(storage, String(productID) + '/');
-    var URLLIST = [];
-    const response = await listAll(imageListRef);
-
-    await Promise.all(
-	response.items.map(async (item) => {
-	    const url = await getDownloadURL(item);
-	    URLLIST.push(url);
-	})
-    );
-    return URLLIST;
 }
 
 async function fetchAllCompletedOrders() {
@@ -169,32 +92,8 @@ async function completeOrder(txnReference) {
 async function deleteVerified(productID) {
     await deleteDoc(doc(db, 'verified', String(productID)));
 }
-
-async function deleteImages(productID) {
-    const storage = getStorage();
-
-    // Create a reference to the file to delete
-    const desertRef = ref(storage, String(productID) + '/');
-
-    const filesList = await listAll(desertRef);
-
-    // Delete each file in the folder
-    await Promise.all(filesList.items.map(async (item) => {
-	await deleteObject(item);
-    }));
-}
-
 export const FireFunc = {
-    addProduct, //void
-    deleteProduct, //void
-    fetchSpecificProuct, //object
-    fetchAllProducts, //array of objects
-    loginFunction, //boolean
-    changeAdminInformation, //void
     addToPending, //void
-    addImage, //void
-    fetchImageForProduct,
-    updateProduct,
     fetchAllCompletedOrders,
     fetchAllIncompletedOrders,
     completeOrder,
