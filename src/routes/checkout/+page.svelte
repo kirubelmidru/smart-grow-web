@@ -3,9 +3,15 @@ import { goto } from '$app/navigation';
 import { FireFunc } from "$lib/firebase/firebase.js";
 let wrong = false;
 let submitted = false;
+let firstName = "";
+let lastName = "";
+let email = "";
+let phone = "";
+let city = "";
+let subCity = "";
 
-function change() {
-    FireFunc.addToPending("100", "100", "100", "100", "100", "100", "100");
+function order() {
+    FireFunc.addToPending("100", firstName, lastName, email, phone, city, subCity);
     submitted = true;
 }
 </script>
@@ -13,47 +19,41 @@ function change() {
 <div class="checkout-wrapper">
     <h2 style="font-size: 48px;">Checkout</h2>
     <input
+	value={firstName}
 	type="text"
 	autocomplete="off"
-	id="firstName"
-	name="firstName"
 	placeholder="First Name"
     />
     <input
+	value={lastName}
 	type="text"
 	autocomplete="off"
-	id="lastName"
-	name="lastName"
 	placeholder="Last Name"
     />
     <input
+	value={email}
 	type="text"
 	autocomplete="off"
-	id="email"
-	name="email"
 	placeholder="Email"
     />
     <input
+	value={phone}
 	type="text"
-	id="phone"
-	name="phone"
 	placeholder="Phone"
     />
     <input
+	value={city}
 	type="text"
-	id="city"
-	name="city"
 	placeholder="City"
     />
     <input
+	value={subCity}
 	type="text"
-	id="subCity"
-	name="subCity"
 	placeholder="Sub City"
     />
 
     <button
-	on:click={change()}
+	on:click={order}
     >
 	Order
     </button>

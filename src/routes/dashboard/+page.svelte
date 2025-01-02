@@ -1,18 +1,38 @@
 <script>
 import { goto } from '$app/navigation';
-import { browser } from '$app/environment';
+import { auth } from "$lib/firebase/firebase.js";
+import { signOut} from "firebase/auth";
+import loginStore from '$lib/stores/loginStore.js';
+import { FireFunc } from "$lib/firebase/firebase.js";
+
+async function logout() {
+    await signOut(auth);
+    await goto('/');
+}
 </script>
 
 <div class="dashboard-wrapper">
-    <h2 style="font-size: 4rem;">Dashboard</h2>
+    <div class="top">
+	<h2 style="font-size: 4rem;">Dashboard</h2>
+	<button on:click={ logout }> Logout</button>
+    </div>
 </div>
 
 <style>
 .dashboard-wrapper {
-    height: 100vh;
     padding: 4rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+}
+.top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+button {
+    padding: 0 4rem;
+    background: black;
+    color: white;
+    font-size: 1.5rem;
 }
 </style>

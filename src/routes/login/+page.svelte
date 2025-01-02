@@ -15,6 +15,7 @@ const handleLogin = async () => {
 	let user = userCredential.user;
 	wrong = false;
 	goto('/dashboard');
+	loginStore.set(true);
     } catch (error) {
 	console.error("Error logging in:", error.message);
 	wrong = true;

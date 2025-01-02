@@ -51,6 +51,7 @@ async function addToPending(
 	phone:phone,
 	city: city,
 	subCity: subCity,
+	completed: false,
     });
 }
 
@@ -86,6 +87,7 @@ async function completeOrder(txnReference) {
 async function deleteVerified(productID) {
     await deleteDoc(doc(db, 'verified', String(productID)));
 }
+
 export const FireFunc = {
     addToPending, //void
     fetchAllCompletedOrders,

@@ -1,12 +1,9 @@
-
-
 import Chapa from 'chapa';
 import { browser } from '$app/environment';
 import { redirect } from '@sveltejs/kit';
 import {FireFunc} from'$lib/firebase/firebase.js';
 
-let myChapa = new Chapa('Bearer CHASECK-JfoQ1UxNpBYYJKBbAAXX4wpVaMGUP78t')
-
+let myChapa = new Chapa('CHASECK_TEST-ij9Gbg3A0sGAYidFLASZhZMPRIaimbGr')
 
 export const actions = {
     paymentInit: async ({ request }) => {
@@ -25,7 +22,6 @@ export const actions = {
 		title: 'hello',
 		description: order
 	    }
-
 	}
 
 	let txnReference,url;
