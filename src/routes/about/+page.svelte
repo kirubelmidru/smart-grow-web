@@ -2,7 +2,6 @@
     <h2 style="font-size: 8rem; text-align: center;">About Us</h2>
 </div>
 <div class="about-wrapper">
-    <h2></h2>
     <p>Welcome to Smart Grow, where innovation meets nature!
 
 	We are a passionate team of tech enthusiasts, designers, and green-thumb advocates dedicated to making gardening simple, accessible, and smart. Combining years of expertise in smart technology and sustainable practices, we strive to bridge the gap between nature and modern living.
@@ -11,6 +10,8 @@
 
 	At Smart Grow, we’re not just developers; we’re gardeners, creators, and dreamers who believe that everyone deserves a little more green in their lives. Let’s grow together!
     </p>
+    <p>
+	</p>
 </div>
 
 <style>
@@ -21,7 +22,6 @@
     color: white;
 }
 .about-wrapper {
-    height: 100vh;
     padding: 8rem;
 }
 p {

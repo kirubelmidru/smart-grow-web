@@ -22,7 +22,7 @@
 
 <div class="dashboard-wrapper">
   <div class="top">
-    <h2 style="font-size: 4rem;">Dashboard</h2>
+    <h2 style="font-size: 4rem;">Orders</h2>
     <button on:click={logout}> Logout</button>
   </div>
   <Table {data} />
@@ -38,6 +38,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 4rem;
   }
   button {
     padding: 0 4rem;
