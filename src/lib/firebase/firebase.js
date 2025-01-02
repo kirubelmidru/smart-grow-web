@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getAuth } from "firebase/auth";
+import { updateDoc } from 'firebase/firestore';
 
 
 import {
@@ -55,6 +56,17 @@ async function addToPending(
     });
 }
 
+async function fetchAllOrders() {
+    const pr = collection(db, 'verified');
+    const q = query(pr);
+    const querySnapshot = await getDocs(q);
+    const AllProducts = [];
+    querySnapshot.forEach((doc) => {
+	AllProducts.push(doc.data());
+    });
+    return AllProducts;
+}
+
 async function fetchAllCompletedOrders() {
     const pr = collection(db, 'verified');
     const q = query(pr, where('completed', '==', true));
@@ -83,6 +95,12 @@ async function completeOrder(txnReference) {
 	completed: true
     });
 }
+async function uncompleteOrder(txnReference) {
+    const docref = doc(db, 'verified', String(txnReference));
+    await updateDoc(docref, {
+	completed: false
+    });
+}
 
 async function deleteVerified(productID) {
     await deleteDoc(doc(db, 'verified', String(productID)));
@@ -90,8 +108,10 @@ async function deleteVerified(productID) {
 
 export const FireFunc = {
     addToPending, //void
+    fetchAllOrders,
     fetchAllCompletedOrders,
     fetchAllIncompletedOrders,
     completeOrder,
+    uncompleteOrder,
     deleteVerified
 };
