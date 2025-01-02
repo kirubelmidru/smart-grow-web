@@ -1,11 +1,12 @@
 <script>
 import { goto } from '$app/navigation';
+import { FireFunc } from "$lib/firebase/firebase.js";
 let wrong = false;
 let submitted = false;
 
 function change() {
+    FireFunc.addToPending("100", "100", "100", "100", "100", "100", "100");
     submitted = true;
-    goto('/');
 }
 </script>
 

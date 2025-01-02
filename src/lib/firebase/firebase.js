@@ -42,9 +42,6 @@ async function addToPending(
     phone,
     city,
     subCity,
-    description,
-    order,
-    price
 ) {
     await setDoc(doc(db, 'pending', txnReference), {
 	txnReference: txnReference,
@@ -54,9 +51,6 @@ async function addToPending(
 	phone:phone,
 	city: city,
 	subCity: subCity,
-	description: description,
-	order: order,
-	price_Before_tax:price
     });
 }
 
