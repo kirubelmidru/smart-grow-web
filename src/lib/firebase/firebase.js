@@ -44,7 +44,7 @@ async function addToPending(
     city,
     subCity,
 ) {
-    await setDoc(doc(db, 'pending', txnReference), {
+    await setDoc(doc(db, 'verified', txnReference), {
 	txnReference: txnReference,
 	firstName: firstName,
 	lastName: lastName,
