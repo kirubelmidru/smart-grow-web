@@ -1,10 +1,10 @@
 import { json } from '@sveltejs/kit';
+import { FireFunc } from "$lib/firebase/firebase.js";
 
-export async function POST({ request }) {
-  const data = await request.json();
-  console.log('Callback received:', data);
-
-  // Perform any post-payment operations like updating the database
-
-  return json({ message: 'Callback received successfully' });
+export async function POST({ req }) {
+  var event = await FireFunc.fetchPendingOrder(req.body.trx_ref);
+  console.log("recived gang")
+  FireFunc,addToVerified(event)
+  await FireFunc.deletePending(req.body.trx_ref);
+  res.send(200)
 }

@@ -105,7 +105,31 @@ async function uncompleteOrder(txnReference) {
 async function deleteVerified(productID) {
     await deleteDoc(doc(db, 'verified', String(productID)));
 }
-
+async function fetchPendingOrder(productID) {
+	const mydoc = await getDoc(doc(db, 'pending', String(productID)));
+	if (mydoc.exists()) {
+		return mydoc.data();
+	} else {
+		return null;
+	}
+}
+async function addToVerified(
+    event,
+) {
+	await setDoc(doc(db, 'verified', event.txnReference), {
+		txnReference: event.txnReference,
+		firstName: event.firstName,
+		lastName: event.lastName,
+		email: event.email,
+        phone:event.phone,
+		city: event.city,
+		subCity: event.subCity,
+        completed:false
+	});
+}
+async function deletePending(productID) {
+	await deleteDoc(doc(db, 'pending', String(productID)));
+}
 export const FireFunc = {
     addToPending, //void
     fetchAllOrders,
@@ -113,5 +137,8 @@ export const FireFunc = {
     fetchAllIncompletedOrders,
     completeOrder,
     uncompleteOrder,
-    deleteVerified
+    deleteVerified,
+    fetchPendingOrder,
+    addToVerified,
+    deletePending
 };
