@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@sveltejs/adapter-vercel": "^5.4.8",
+        "axios": "^1.7.9",
         "chapa": "^1.0.5",
         "firebase": "^11.1.0"
     }

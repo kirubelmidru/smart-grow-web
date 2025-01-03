@@ -1,16 +1,22 @@
+<script>
+let impacts = [
+    {name: "Resource Efficiency", description: "Resource efficiency in smart plant growing systems refers to the optimization of inputs such as water, energy, nutrients, and space to maximize plant growth while minimizing waste and environmental impact. These systems leverage advanced technologies to ensure sustainable and cost-effective plant cultivation."},
+    {name: "Convenience", description: "Convenience in smart plant growing systems refers to the ease and simplicity these systems provide to users in managing and maintaining plant growth. By integrating automation, intuitive interfaces, and remote management capabilities, they minimize the time, effort, and expertise required for successful cultivation."},
+    {name: "Urban Sustainability", description: "Urban sustainability involves practices that help cities manage resources responsibly, reduce environmental impacts, and improve the quality of life for residents. Smart plant growing systems contribute significantly to urban sustainability by enabling efficient and eco-friendly food production within city limits."},
+    {name: "Food Security", description: "Food security means ensuring all individuals have access to sufficient, safe, and nutritious food. Smart plant growing systems address several challenges associated with food security, especially in urban and resource-scarce areas."},
+];
+</script>
+
 <div class="impact-hero">
     <h2 style="font-size: 8rem; text-align: center;">Our Impact</h2>
 </div>
 <div class="impact-wrapper">
-    <h2></h2>
-    <p>Welcome to Smart Grow, where innovation meets nature!
-
-	We are a passionate team of tech enthusiasts, designers, and green-thumb advocates dedicated to making gardening simple, accessible, and smart. Combining years of expertise in smart technology and sustainable practices, we strive to bridge the gap between nature and modern living.
-
-	Our mission is to empower people everywhere to enjoy the joys of growing their own plants—whether in small urban apartments or expansive homes. Through cutting-edge automation and beautifully designed products, we’re redefining how we care for plants, one smart solution at a time.
-
-	At Smart Grow, we’re not just developers; we’re gardeners, creators, and dreamers who believe that everyone deserves a little more green in their lives. Let’s grow together!
-    </p>
+    {#each impacts as impact}
+	<div class="impacts">
+	    <h2>{impact.name}</h2>
+	    <p>{impact.description}</p>
+	</div>
+    {/each}
 </div>
 
 <style>
@@ -21,10 +27,26 @@
     color: white;
 }
 .impact-wrapper {
-    height: 100vh;
-    padding: 8rem;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 16rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8rem;
 }
-p {
+@media only screen and (max-width: 1500px) {
+    .impact-wrapper {
+	max-width: 960px;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media only screen and (max-width: 960px) {
+    .impact-wrapper {
+	max-width: 540px;
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+h2 {
     font-size: 2rem;
 }
 </style>

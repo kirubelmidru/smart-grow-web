@@ -1,7 +1,7 @@
 <script>
 import Member from "$lib/components/articles/Member.svelte";
 
-import Amanuel_Million from "$lib/images/first.jpg";
+import Amanuel_Million from "$lib/images/amanuel_million.png";
 import Bemnet_Yohannes from "$lib/images/bemnet_yohannes.jpg";
 import Betelhem_Fisseha from "$lib/images/betelhem_fisseha.jpg";
 import Ezana_Getachew from "$lib/images/ezana_getachew.jpg";

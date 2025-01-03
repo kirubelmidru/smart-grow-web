@@ -1,56 +1,97 @@
 <script>
-  import { goto } from "$app/navigation";
-  import { FireFunc } from "$lib/firebase/firebase.js";
+import { goto } from '$app/navigation';
+import { FireFunc } from "$lib/firebase/firebase.js";
+let wrong = false;
+let submitted = false;
+let tx_ref = `tx-${Date.now()}`;
+let firstName;
+let lastName;
+let email;
+let phone;
+let city;
+let subCity;
+let amount = 100;
+let currency = 'ETB';
+let return_url = 'http://localhost:5173/success';
 
-  let formData = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    city: "",
-    subCity: "",
-  };
+const initiatePayment = async () => {
+    try {
+	FireFunc.addToPending(tx_ref, firstName, lastName, email, phone, city, subCity);
+	const response = await fetch('/api/payment', {
+	    method: 'POST',
+	    headers: { 'Content-Type': 'application/json' },
+	    body: JSON.stringify({ email, amount, currency, tx_ref, return_url }),
+	});
 
-  let submitted = false;
-  let showError = false;
-
-  const handleSubmit = () => {
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.phone ||
-      !formData.city ||
-      !formData.subCity
-    ) {
-      showError = true;
-      return;
+	const result = await response.json();
+	if (result.data && result.data.checkout_url) {
+	    window.location.href = result.data.checkout_url;
+	} else {
+	    alert('Failed to initiate payment');
+	}
+    } catch (error) {
+	console.error('Payment initiation error:', error);
+	alert('An error occurred during payment initiation');
     }
+};
 
-    FireFunc.addToPending(
-      formData.firstName,
-      formData.lastName,
-      formData.email,
-      formData.phone,
-      formData.city,
-      formData.subCity
-    );
-    submitted = true;
-    showError = false;
-  };
+function pay() {
+    FireFunc.addToPending(tx_ref, firstName, lastName, email, phone, city, subCity);
+    sumitted = true;
+}
 </script>
 
 <div class="checkout-wrapper">
-  <h2>Checkout</h2>
+    <h2 style="font-size: 48px;">Checkout</h2>
+    <input
+	bind:value={firstName}
+	type="text"
+	name="firstName"
+	id="firstName"
+	autocomplete="off"
+	placeholder="First Name"
+    />
+    <input
+	bind:value={lastName}
+	type="text"
+	name="lastName"
+	id="lastName"
+	autocomplete="off"
+	placeholder="Last Name"
+    />
+    <input
+	bind:value={email}
+	type="text"
+	name="email"
+	id="email"
+	autocomplete="off"
+	placeholder="Email"
+    />
+    <input
+	bind:value={phone}
+	type="text"
+	name="phone"
+	id="phone"
+	placeholder="Phone"
+    />
+    <input
+	bind:value={city}
+	type="text"
+	name="city"
+	id="city"
+	placeholder="City"
+    />
+    <input
+	bind:value={subCity}
+	type="text"
+	name="subCity"
+	id="subCity"
+	placeholder="Sub City"
+    />
 
-  <input bind:value={formData.firstName} type="text" placeholder="First Name" />
-  <input bind:value={formData.lastName} type="text" placeholder="Last Name" />
-  <input bind:value={formData.email} type="text" placeholder="Email" />
-  <input bind:value={formData.phone} type="text" placeholder="Phone" />
-  <input bind:value={formData.city} type="text" placeholder="City" />
-  <input bind:value={formData.subCity} type="text" placeholder="Sub City" />
-
-  <button on:click={handleSubmit}>Order</button>
+    <button on:click={pay}>
+	Order
+    </button>
 
   {#if showError}
     <p class="error">Please complete all the fields.</p>
@@ -92,9 +133,15 @@
     color: white;
 
     text-transform: uppercase;
-  }
-
-  .popup {
+}
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+.popup {
     border-radius: 1rem;
 
     padding: 1rem;

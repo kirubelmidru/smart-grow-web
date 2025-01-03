@@ -14,7 +14,6 @@ let who = [
     {text: "Admin", url: "/dashboard"}
 ];
 let where = [
-    {text: "Location", url: "/location"},
     {text: "Shop", url: "/shop"},
 ];
 let socials= [
