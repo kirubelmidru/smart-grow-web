@@ -4,17 +4,18 @@ import { FireFunc } from "$lib/firebase/firebase.js";
 export async function POST({ request }) {
     try {
         // Parse the request body
-        const { trx_ref } = await request.json();
-        console.log("Received request:", trx_ref);
-        // Fetch the pending order
-        const event = await FireFunc.fetchPendingOrder(trx_ref);
-        console.log("Received event:", event);
+        console.log("Received request:", request);
+        // const { trx_ref } = await request.json();
+        // console.log("Received request:", trx_ref);
+        // // Fetch the pending order
+        // const event = await FireFunc.fetchPendingOrder(trx_ref);
+        // console.log("Received event:", event);
 
-        // Add the event to verified orders
-        await FireFunc.addToVerified(event);
+        // // Add the event to verified orders
+        // await FireFunc.addToVerified(event);
 
-        // Delete the pending order
-        await FireFunc.deletePending(trx_ref);
+        // // Delete the pending order
+        // await FireFunc.deletePending(trx_ref);
 
         // Send a success response
         return json({ message: "Order processed successfully." }, { status: 200 });
